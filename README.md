@@ -1,4 +1,4 @@
-# 🌸 Flora - Period & Fertility Tracker
+# 🌸 Flora - 100% offline & private Period Tracker
 
 A private, minimalist, and clinically rigorous period & fertility tracking app. Built with React 19, Tailwind CSS v4, Lucide icons, and 100% offline local device storage. No tracking, no accounts, and no data leaves your phone.
 
