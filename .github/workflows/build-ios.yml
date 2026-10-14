@@ -41,20 +41,32 @@ jobs:
             -sdk iphoneos \
             -destination 'generic/platform=iOS' \
             -derivedDataPath build \
-            CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES 2>&1 | tee xcodebuild.log
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGN_ENTITLEMENTS="" \
+            CODE_SIGN_STYLE=Manual 2>&1 | tee xcodebuild.log
 
-      - name: Show build error log on failure
+      - name: Report Errors & Upload Log on Failure
         if: failure()
         run: |
           if [ -f xcodebuild.log ]; then
-            echo "=== LAST 100 LINES OF XCODEBUILD LOG ==="
-            tail -n 100 xcodebuild.log
-            echo "=== ERROR MATCHES ==="
-            grep -in "error:" xcodebuild.log || true
+            python3 -c "
+            import re
+            with open('xcodebuild.log', 'r', errors='ignore') as f:
+                for line in f:
+                    if 'error:' in line:
+                        clean = line.strip().replace('\n', ' ')
+                        print(f'::error::{clean}')
+            "
           fi
+
+      - name: Upload xcodebuild Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log
+          path: xcodebuild.log
 
       - name: Package Unsigned IPA
         run: |
