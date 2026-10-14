@@ -3,6 +3,17 @@
 A private, minimalist, and clinically rigorous period & fertility tracking app. Built with React 19, Tailwind CSS v4, Lucide icons, and 100% offline local device storage. No tracking, no accounts, and no data leaves your phone.
 
 ---
+## Views
+<p align="center">
+  <img width="24%" alt="image" src="https://github.com/user-attachments/assets/6f317244-5ba3-405c-a669-eb1e493e1998" />
+  <img width="24%" alt="image" src="https://github.com/user-attachments/assets/bd65c94c-2359-4424-bdd4-c1ab8b1a85c6" />
+  <img width="24%" alt="image" src="https://github.com/user-attachments/assets/d73614be-e6ce-45a1-805b-cfc2720e82ea" />
+  <img width="24%" alt="image" src="https://github.com/user-attachments/assets/e1889160-8f7c-4705-97b6-5056f69c9895" />
+</p>
+
+
+
+---
 
 ## ✨ Features
 
