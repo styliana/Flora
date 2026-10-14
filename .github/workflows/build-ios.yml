@@ -44,7 +44,17 @@ jobs:
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="-" \
             CODE_SIGNING_REQUIRED=NO \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES
+            AD_HOC_CODE_SIGNING_ALLOWED=YES 2>&1 | tee xcodebuild.log
+
+      - name: Show build error log on failure
+        if: failure()
+        run: |
+          if [ -f xcodebuild.log ]; then
+            echo "=== LAST 100 LINES OF XCODEBUILD LOG ==="
+            tail -n 100 xcodebuild.log
+            echo "=== ERROR MATCHES ==="
+            grep -in "error:" xcodebuild.log || true
+          fi
 
       - name: Package Unsigned IPA
         run: |
