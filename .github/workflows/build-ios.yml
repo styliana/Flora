@@ -27,29 +27,28 @@ jobs:
       - name: Sync Capacitor iOS
         run: npx cap sync ios
 
-      - name: Build iOS Archive
+      - name: Resolve Swift Package dependencies
         run: |
-          if [ -d "ios/App/App.xcworkspace" ]; then
-            TARGET_ARG="-workspace ios/App/App.xcworkspace"
-          else
-            TARGET_ARG="-project ios/App/App.xcodeproj"
-          fi
-          
-          xcodebuild \
-            $TARGET_ARG \
+          xcodebuild -resolvePackageDependencies -project ios/App/App.xcodeproj
+
+      - name: Build iOS App Bundle
+        run: |
+          xcodebuild build \
+            -project ios/App/App.xcodeproj \
             -scheme App \
             -configuration Release \
+            -sdk iphoneos \
             -destination 'generic/platform=iOS' \
-            -archivePath build/App.xcarchive \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
+            -derivedDataPath build \
+            CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="" \
-            archive
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Package Unsigned IPA
         run: |
           mkdir -p Payload
-          cp -r build/App.xcarchive/Products/Applications/*.app Payload/Flora.app
+          cp -r build/Build/Products/Release-iphoneos/*.app Payload/Flora.app
           zip -r Flora.ipa Payload
           rm -rf Payload
 
