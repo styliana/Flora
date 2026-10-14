@@ -40,8 +40,12 @@ A private, minimalist, and clinically rigorous period & fertility tracking app. 
    ```
    Open the network IP on your phone's browser and tap **"Add to Home Screen"** to install it as a fullscreen app.
 
+
 ---
 
 ## 📦 Building Android APK
 
 See [`README_APK.md`](file:///C:/Users/DELL/Documents/flo/README_APK.md) for full instructions on generating a native `.apk` using Capacitor or installing as a standalone PWA.
+
+---
+## Download easy and directly with instructions from the drive: https://drive.google.com/drive/u/0/folders/1I-ONO_-OxVBFZs9c8gjHT-5bxGuvjzmE
